@@ -21,6 +21,8 @@
   (toggle-indicate-empty-lines))
 ;; show parentheses
 (show-paren-mode t)
+;; show time
+(display-time-mode t)
 
 
 ;;;;;;;;;;;;;;;;;;;;

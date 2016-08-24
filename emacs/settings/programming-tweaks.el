@@ -3,10 +3,34 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; no tabs!
 (setq-default indent-tabs-mode nil)
+;; default tab width
+(setq-default tab-width 2)
 ;; column number in mode line
 (setq column-number-mode t)
 ;; line numbers in margin
 (global-linum-mode 1)
+;; format line numbers
+(setq linum-format " %d ")
+;; highlight current line number
+(use-package hlinum
+  :config
+  (hlinum-activate))
+;; highlight cursor line
+(global-hl-line-mode t)
+;; make some ascii symbols look like real symbols
+(add-hook 'prog-mode-hook
+	  (lambda () (setq prettify-symbols-alist
+		      '(
+			("=>" . ?⇒)
+			("<-" . ?←)
+			("->" . ?→)
+			("<<<" . ?⋘)
+			(">>>" . ?⋙)
+			("lambda" . ?λ)
+			("function" . ?λ)
+      ("defun" . ?λ)
+			))))
+(global-prettify-symbols-mode t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -37,6 +61,19 @@
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 
 (setq-default show-trailing-whitespace t)
+
+
+;; Store backup files in a standard location instead of next to file
+(defvar my-backup-folder
+  (concat user-emacs-directory
+          (convert-standard-filename ".backup/")))
+(setq backup-directory-alist `((".*" . ,my-backup-folder)))
+
+(defvar my-auto-save-folder
+  (concat user-emacs-directory
+          (convert-standard-filename ".auto-save")))
+(setq auto-save-file-name-transforms `((".*"  ,my-auto-save-folder t)))
+
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Export package ;;
