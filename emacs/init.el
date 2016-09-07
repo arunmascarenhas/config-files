@@ -67,6 +67,8 @@
 (require 'programming-tweaks)
 (require 'theme)
 (require 'git)
+(require 'clojure)
+(require 'jade)
 
 
 ;;;;;;;;;;;;;;;;;;;;
