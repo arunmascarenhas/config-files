@@ -7,6 +7,14 @@
 
 ;; This makes Emacs startup time faster on a reasonably good machine.
 (setq gc-cons-threshold 100000000)
+;; Throttle the gc threshold back down after 5 seconds of idle time.
+;; This prevents long pauses during gc, which take longer the higher the trhrehold.
+(run-with-idle-timer
+ 5 nil
+ (lambda ()
+   (setq gc-cons-threshold 1000000)
+   (message "gc-cons-threshold restored to %S"
+            gc-cons-threshold)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -62,7 +70,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialize my tweaks ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path (expand-file-name "settings" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 (require 'interface-tweaks)
 (require 'programming-tweaks)
 (require 'theme)
