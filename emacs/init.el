@@ -6,6 +6,7 @@
 
 
 ;; This makes Emacs startup time faster on a reasonably good machine.
+(message "gc-cons-threshold set to 100000000")
 (setq gc-cons-threshold 100000000)
 ;; Throttle the gc threshold back down after 5 seconds of idle time.
 ;; This prevents long pauses during gc, which take longer the higher the trhrehold.
@@ -61,6 +62,8 @@
   (require 'use-package))
 
 
+;; Add Emacs StartUp Profiler for profiling startup
+(use-package esup)
 ;; ensure the mode line is clean
 (require 'diminish)
 ;; easy way to bind keys
