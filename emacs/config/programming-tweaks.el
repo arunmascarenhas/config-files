@@ -28,7 +28,7 @@
 			(">>>" . ?⋙)
 			("lambda" . ?λ)
 			("function" . ?λ)
-      ("defun" . ?λ)
+     ("defun" . ?λ)
 			))))
 (global-prettify-symbols-mode t)
 
@@ -73,6 +73,16 @@
   (concat user-emacs-directory
           (convert-standard-filename "auto-save")))
 (setq auto-save-file-name-transforms `((".*"  ,my-auto-save-folder t)))
+
+
+;; Flycheck
+(use-package flycheck
+  :init
+  (setq flycheck-highlighting-mode 'nil)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
+  ;; Disable JSHint checker in favor of ESLint.
+  (setq-default flycheck-disabled-checkers '(javascript-jshint)))
 
 
 ;;;;;;;;;;;;;;;;;;;;

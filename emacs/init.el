@@ -1,3 +1,7 @@
+;; Hack for issue with packages
+(load-library "url-handlers")
+
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; User Information ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -28,7 +32,11 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("ac2b1fed9c0f0190045359327e963ddad250e131fbf332e80d371b2e1dbc1dc4" default))))
+    ("ac2b1fed9c0f0190045359327e963ddad250e131fbf332e80d371b2e1dbc1dc4" default)))
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(package-selected-packages
+   (quote
+    (scss-mode less-css-mode rainbow-mode tss jsx-mode haml-mode stylus-mode warm-night-theme use-package magit-gh-pulls jade-mode hlinum gitignore-mode git-timemachine git-messenger git-gutter-fringe+ evalator-clojure esup cider-spy cider-profile cider-eval-sexp-fu cider-decompile browse-at-remote))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -75,11 +83,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 (require 'interface-tweaks)
+(require 'helm_)
 (require 'programming-tweaks)
 (require 'theme)
 (require 'git)
 (require 'clojure)
-(require 'jade)
+(require 'web)
 
 
 ;;;;;;;;;;;;;;;;;;;;

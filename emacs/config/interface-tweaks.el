@@ -5,6 +5,9 @@
 (menu-bar-mode -1)
 ;; no toolbar
 (tool-bar-mode -1)
+;; full screen
+(custom-set-variables
+ '(initial-frame-alist (quote ((fullscreen . maximized)))))
 ;; no scrollbar
 (scroll-bar-mode -1)
 ;; only type `y` instead of `yes`
