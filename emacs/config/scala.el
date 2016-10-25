@@ -20,7 +20,7 @@
               ("C-c m b r" . sbt-run-previous-command))
   :config
   ;; Do not pop up SBT buffers automatically
-  ;(validate-setq sbt:display-command-buffer nil)
+  (validate-setq sbt:display-command-buffer nil)
   (defun lunaryorn-scala-pop-to-sbt (new-frame)
     (interactive "P")
     ;; Start SBT when no running, taken from `sbt:command'

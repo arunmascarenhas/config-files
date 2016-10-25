@@ -36,7 +36,7 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (play-routes-mode scss-mode less-css-mode rainbow-mode tss jsx-mode haml-mode stylus-mode warm-night-theme use-package magit-gh-pulls jade-mode hlinum gitignore-mode git-timemachine git-messenger git-gutter-fringe+ evalator-clojure esup cider-spy cider-profile cider-eval-sexp-fu cider-decompile browse-at-remote))))
+    (company-emacs-eclim gradle-mode eclim validate play-routes-mode scss-mode less-css-mode rainbow-mode tss jsx-mode haml-mode stylus-mode warm-night-theme use-package magit-gh-pulls jade-mode hlinum gitignore-mode git-timemachine git-messenger git-gutter-fringe+ evalator-clojure esup cider-spy cider-profile cider-eval-sexp-fu cider-decompile browse-at-remote))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -76,6 +76,8 @@
 (require 'diminish)
 ;; easy way to bind keys
 (require 'bind-key)
+;; Ensure validate.el is installed
+(use-package validate)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -84,12 +86,14 @@
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 (require 'interface-tweaks)
 (require 'helm_)
+(require 'company_)
 (require 'programming-tweaks)
 (require 'theme)
 (require 'git)
 (require 'clojure)
 (require 'web)
 (require 'scala)
+(require 'java)
 
 
 ;;;;;;;;;;;;;;;;;;;;
