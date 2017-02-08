@@ -41,9 +41,7 @@
         web-mode-code-indent-offset 2
         web-mode-style-padding 2
         web-mode-script-padding 2)
-
-(flycheck-add-mode 'html-tidy 'web-mode)
-
+  (flycheck-add-mode 'html-tidy 'web-mode)
   (add-hook 'web-mode-hook 'my-web-mode-hook))
 
 
@@ -75,8 +73,8 @@
          ("\\.postcss\\'" . scss-mode)))
 
 
-(use-package jade-mode
-  :mode ("\\.jade\\'" . jade-mode))
+;(use-package jade-mode
+;  :mode ("\\.jade\\'" . jade-mode))
 
 
 (use-package stylus-mode

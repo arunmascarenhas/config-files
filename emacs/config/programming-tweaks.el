@@ -18,19 +18,19 @@
 ;; highlight cursor line
 (global-hl-line-mode t)
 ;; make some ascii symbols look like real symbols
-(add-hook 'prog-mode-hook
-	  (lambda () (setq prettify-symbols-alist
-		      '(
-			("=>" . ?⇒)
-			("<-" . ?←)
-			("->" . ?→)
-			("<<<" . ?⋘)
-			(">>>" . ?⋙)
-			("lambda" . ?λ)
-			("function" . ?λ)
-     ("defun" . ?λ)
-			))))
-(global-prettify-symbols-mode t)
+;(add-hook 'prog-mode-hook
+;	  (lambda () (setq prettify-symbols-alist
+;		      '(
+;			("=>" . ?⇒)
+;			("<-" . ?←)
+;			("->" . ?→)
+;			("<<<" . ?⋘)
+;			(">>>" . ?⋙)
+;			("lambda" . ?λ)
+;			("function" . ?λ)
+;    ("defun" . ?λ)
+;			))))
+;(global-prettify-symbols-mode t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -85,6 +85,34 @@
   (setq-default flycheck-disabled-checkers '(javascript-jshint)))
 
 
+;; Smart Open Line
+(defun smart-open-line ()
+  "Insert an empty line after the current line.
+Position the cursor at its beginning, according to the current mode."
+  (interactive)
+  (move-end-of-line nil)
+  (newline-and-indent))
+
+(defun smart-open-line-above ()
+  "Insert an empty line above the current line.
+Position the cursor at it's beginning, according to the current mode."
+  (interactive)
+  (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(global-set-key [(shift return)] 'smart-open-line)
+(global-set-key [(control shift return)] 'smart-open-line-above)
+
+
+(use-package aggressive-indent
+  :ensure t
+  :config
+  (global-aggressive-indent-mode +1)
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'python-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'haml-mode))
 ;;;;;;;;;;;;;;;;;;;;
 ;; Export package ;;
 ;;;;;;;;;;;;;;;;;;;;

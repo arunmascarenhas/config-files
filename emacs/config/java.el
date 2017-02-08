@@ -12,13 +12,20 @@
 (use-package eclim
   :ensure t
   :init
+ (setq help-at-pt-display-when-idle t
+       help-at-pt-timer-delay 0.1)
   (add-hook 'java-mode-hook 'eclim-mode)
   :config
   (progn
     (require 'eclimd)
     (define-key eclim-mode-map (kbd "C-c C-c") 'eclim-problems-correct)
 	(define-key eclim-mode-map (kbd "C-c C-r") 'eclim-java-refactor-rename-symbol-at-point)
-	(define-key eclim-mode-map (kbd "C-c C-m") 'eclim-java-refactor-move-class)))
+	(define-key eclim-mode-map (kbd "C-c C-m") 'eclim-java-refactor-move-class)
+	(help-at-pt-set-timer)))
+
+
+(custom-set-variables
+  '(eclimd-default-workspace '("d:/programming/workspace")))
 
 
 (use-package gradle-mode
