@@ -2,6 +2,10 @@
 ;  :init (setq js-indent-level 2))
 
 
+(setenv "PATH" (concat (getenv "PATH") ";~/npm"))
+    (setq exec-path (append exec-path '("~/npm")))
+
+
 (use-package js2-mode
   :mode (("\\.js\\'" . js2-mode)
          ("\\.jsx\\'" . js2-jsx-mode))

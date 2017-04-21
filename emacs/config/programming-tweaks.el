@@ -110,6 +110,7 @@ Position the cursor at it's beginning, according to the current mode."
   :ensure t
   :config
   (global-aggressive-indent-mode +1)
+  (add-to-list 'aggressive-indent-excluded-modes 'js2-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'haml-mode))
