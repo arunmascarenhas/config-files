@@ -77,12 +77,19 @@
 
 ;; Flycheck
 (use-package flycheck
+  :diminish flycheck-mode
   :init
   (setq flycheck-highlighting-mode 'nil)
   (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
+  (setq-default flycheck-temp-prefix ".")
   ;; Disable JSHint checker in favor of ESLint.
-  (setq-default flycheck-disabled-checkers '(javascript-jshint)))
+  (setq-default flycheck-disabled-checkers
+                     (append flycheck-disabled-checkers
+                     '(javascript-jshint)))
+  (setq-default flycheck-disabled-checkers
+            (append flycheck-disabled-checkers
+                    '(json-jsonlist))))
 
 
 ;; Smart Open Line

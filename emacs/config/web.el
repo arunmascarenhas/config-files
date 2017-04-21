@@ -6,6 +6,18 @@
     (setq exec-path (append exec-path '("~/npm")))
 
 
+;; https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+(defun my/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+	
 (use-package js2-mode
   :mode (("\\.js\\'" . js2-mode)
          ("\\.jsx\\'" . js2-jsx-mode))
@@ -22,6 +34,8 @@
                              (subword-mode 1)
                              (diminish 'subword-mode)))
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
+  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
   :config
   (use-package tern
     :diminish tern-mode
