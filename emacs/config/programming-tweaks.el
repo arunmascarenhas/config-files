@@ -80,6 +80,7 @@
   :diminish flycheck-mode
   :init
   (setq flycheck-highlighting-mode 'nil)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
   (setq-default flycheck-temp-prefix ".")
   ;; Disable JSHint checker in favor of ESLint.
