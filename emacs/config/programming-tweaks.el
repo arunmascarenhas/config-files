@@ -80,7 +80,6 @@
   :diminish flycheck-mode
   :init
   (setq flycheck-highlighting-mode 'nil)
-  (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
   (setq-default flycheck-temp-prefix ".")
   ;; Disable JSHint checker in favor of ESLint.
@@ -117,8 +116,8 @@ Position the cursor at it's beginning, according to the current mode."
   :ensure t
   :config
   (global-aggressive-indent-mode +1)
-  (add-to-list 'aggressive-indent-excluded-modes 'js2-mode)
-  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+  ;(add-to-list 'aggressive-indent-excluded-modes 'js2-mode)
+  ;(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'haml-mode))
 ;;;;;;;;;;;;;;;;;;;;
