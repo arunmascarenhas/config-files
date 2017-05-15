@@ -2,8 +2,17 @@
 ;  :init (setq js-indent-level 2))
 
 
+;; This is for getting global NPM packages on the build path.
 (setenv "PATH" (concat (getenv "PATH") ";~/npm"))
     (setq exec-path (append exec-path '("~/npm")))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; In order to get emacs to use your local eslint, js-beautify, or other Node packages,
+;; create a .dir-locals.el file in the root of your project with the following content:
+; ((nil . ((eval . (progn
+;                   (add-to-list 'exec-path (concat (locate-dominating-file default-directory ".dir-locals.el") "node_modules/.bin/")))))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;; https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
@@ -34,7 +43,7 @@
                              (subword-mode 1)
                              (diminish 'subword-mode)))
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
-  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+  ;(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   :config
   (use-package tern
@@ -114,13 +123,13 @@
   (add-hook 'web-mode-hook 'emmet-mode))
 
 
-;(use-package web-beautify
-;  :commands (web-beautify-css
-;             web-beautify-css-buffer
-;             web-beautify-html
-;             web-beautify-html-buffer
-;             web-beautify-js
-;             web-beautify-js-buffer))
+(use-package web-beautify
+  :commands (web-beautify-css
+             web-beautify-css-buffer
+             web-beautify-html
+             web-beautify-html-buffer
+             web-beautify-js
+             web-beautify-js-buffer))
 
 
 ;;;;;;;;;;;;;;;;;;;;

@@ -37,7 +37,8 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (flycheck-pos-tip flycheck-clojure hl-sexp clj-refactor evil-surround evil-numbers evil-nerd-commenter evil-matchit evil-iedit-state evil general company-emacs-eclim gradle-mode eclim validate play-routes-mode scss-mode less-css-mode rainbow-mode tss jsx-mode haml-mode stylus-mode warm-night-theme use-package magit-gh-pulls jade-mode hlinum gitignore-mode git-timemachine git-messenger git-gutter-fringe+ evalator-clojure esup cider-spy cider-profile cider-eval-sexp-fu cider-decompile browse-at-remote)))
+    (web-beautify flycheck-pos-tip flycheck-clojure hl-sexp clj-refactor evil-surround evil-numbers evil-nerd-commenter evil-matchit evil-iedit-state evil general company-emacs-eclim gradle-mode eclim validate play-routes-mode scss-mode less-css-mode rainbow-mode tss jsx-mode haml-mode stylus-mode warm-night-theme use-package magit-gh-pulls jade-mode hlinum gitignore-mode git-timemachine git-messenger git-gutter-fringe+ evalator-clojure esup cider-spy cider-profile cider-eval-sexp-fu cider-decompile browse-at-remote))))
+
  '(safe-local-variable-values
    (quote
     ((eval progn
@@ -46,6 +47,7 @@
             (concat
              (locate-dominating-file default-directory ".dir-locals.el")
              "node_modules/.bin/")))))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
