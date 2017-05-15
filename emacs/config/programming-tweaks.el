@@ -121,6 +121,15 @@ Position the cursor at it's beginning, according to the current mode."
   ;(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'haml-mode))
+  
+(use-package string-inflection
+  :config
+  :bind (("C-c i" . string-inflection-cycle)
+         ("C-c C" . string-inflection-camelcase)
+		 ("C-c L" . string-inflection-lower-camelcase)
+		 ("C-c J" . string-inflection-java-style-cycle)))
+  
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; Export package ;;
 ;;;;;;;;;;;;;;;;;;;;
