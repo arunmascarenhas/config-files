@@ -104,6 +104,8 @@
 (require 'web)
 (require 'scala)
 (require 'java)
+(require 'rust)
+(require 'elixir)
 (require 'evil_)
 
 

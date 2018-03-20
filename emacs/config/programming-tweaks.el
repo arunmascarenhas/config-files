@@ -89,7 +89,12 @@
                      '(javascript-jshint)))
   (setq-default flycheck-disabled-checkers
             (append flycheck-disabled-checkers
-                    '(json-jsonlist))))
+                    '(json-jsonlist)))
+  (use-package flycheck-pos-tip
+    :ensure t
+    :config
+    (eval-after-load 'flycheck
+      '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))))
 
 
 ;; Smart Open Line
