@@ -18,19 +18,19 @@
 ;; highlight cursor line
 (global-hl-line-mode t)
 ;; make some ascii symbols look like real symbols
-;(add-hook 'prog-mode-hook
-;	  (lambda () (setq prettify-symbols-alist
-;		      '(
-;			("=>" . ?⇒)
-;			("<-" . ?←)
-;			("->" . ?→)
-;			("<<<" . ?⋘)
-;			(">>>" . ?⋙)
-;			("lambda" . ?λ)
-;			("function" . ?λ)
-;    ("defun" . ?λ)
-;			))))
-;(global-prettify-symbols-mode t)
+                                        ;(add-hook 'prog-mode-hook
+                                        ;	  (lambda () (setq prettify-symbols-alist
+                                        ;		      '(
+                                        ;			("=>" . ?⇒)
+                                        ;			("<-" . ?←)
+                                        ;			("->" . ?→)
+                                        ;			("<<<" . ?⋘)
+                                        ;			(">>>" . ?⋙)
+                                        ;			("lambda" . ?λ)
+                                        ;			("function" . ?λ)
+                                        ;    ("defun" . ?λ)
+                                        ;			))))
+                                        ;(global-prettify-symbols-mode t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -85,11 +85,14 @@
   (setq-default flycheck-temp-prefix ".")
   ;; Disable JSHint checker in favor of ESLint.
   (setq-default flycheck-disabled-checkers
-                     (append flycheck-disabled-checkers
-                     '(javascript-jshint)))
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint)))
   (setq-default flycheck-disabled-checkers
             (append flycheck-disabled-checkers
                     '(json-jsonlist)))
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(json-jsonlist)))
   (use-package flycheck-pos-tip
     :ensure t
     :config
@@ -122,18 +125,29 @@ Position the cursor at it's beginning, according to the current mode."
   :ensure t
   :config
   (global-aggressive-indent-mode +1)
-  ;(add-to-list 'aggressive-indent-excluded-modes 'js2-mode)
-  ;(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+                                        ;(add-to-list 'aggressive-indent-excluded-modes 'js2-mode)
+                                        ;(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'haml-mode))
-  
+
 (use-package string-inflection
   :config
   :bind (("C-c i" . string-inflection-cycle)
          ("C-c C" . string-inflection-camelcase)
-		 ("C-c L" . string-inflection-lower-camelcase)
-		 ("C-c J" . string-inflection-java-style-cycle)))
-  
+         ("C-c L" . string-inflection-lower-camelcase)
+         ("C-c J" . string-inflection-java-style-cycle)))
+
+
+
+(global-set-key (kbd "M-]") 'next-buffer)
+(global-set-key (kbd "M-[") 'previous-buffer)
+
+
+(use-package zoom-frm
+  :config
+  :bind(("C-=" . zoom-frm-in)
+        ("C--" . zoom-frm-out)))
+
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Export package ;;

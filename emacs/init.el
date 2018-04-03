@@ -37,7 +37,7 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (emmet-mode web-beautify flycheck-pos-tip flycheck-clojure hl-sexp clj-refactor evil-surround evil-numbers evil-nerd-commenter evil-matchit evil-iedit-state evil general company-emacs-eclim gradle-mode eclim validate play-routes-mode scss-mode less-css-mode rainbow-mode tss jsx-mode haml-mode stylus-mode warm-night-theme use-package magit-gh-pulls jade-mode hlinum gitignore-mode git-timemachine git-messenger git-gutter-fringe+ evalator-clojure esup cider-spy cider-profile cider-eval-sexp-fu cider-decompile browse-at-remote)))
+    (ensime sbt-mode scala-mode web-mode js2-refactor js-doc tern js2-mode cider clojure-mode git-gutter+ magit emmet-mode web-beautify flycheck-pos-tip flycheck-clojure hl-sexp clj-refactor evil-surround evil-numbers evil-nerd-commenter evil-matchit evil-iedit-state evil general company-emacs-eclim gradle-mode eclim validate play-routes-mode scss-mode less-css-mode rainbow-mode tss jsx-mode haml-mode stylus-mode warm-night-theme use-package magit-gh-pulls jade-mode hlinum gitignore-mode git-timemachine git-messenger git-gutter-fringe+ evalator-clojure esup cider-spy cider-profile cider-eval-sexp-fu cider-decompile browse-at-remote)))
  '(safe-local-variable-values
    (quote
     ((eval progn
@@ -64,7 +64,8 @@
       package-archives
       '(("gnu"   . "https://elpa.gnu.org/packages/")
         ("org"   . "http://orgmode.org/elpa/")
-        ("melpa" . "https://melpa.org/packages/")))
+        ("melpa" . "http://melpa.org/packages/")
+	("marmalade" . "https://marmalade-repo.org/packages/")))
 (package-initialize)
 
 
@@ -95,6 +96,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 (require 'interface-tweaks)
+(require 'frame-fns)
+(require 'frame-cmds)
+(require 'zoom-frm)
 (require 'helm_)
 (require 'company_)
 (require 'programming-tweaks)
