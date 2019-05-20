@@ -1,0 +1,49 @@
+[user]
+	name = Arun Mascarenhas
+	email = arunmascarenhas@yahoo.com
+[url "git@github.com:"]
+	insteadOf = https://github.com
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[alias]
+  la = "!git config -l | grep alias | cut -c 7-"
+  l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  lll = log -u
+  diffc = diff --cached HEAD^
+  st = "!git status -s | cat -n"
+  aa = !git add -u && git add . && git st
+  ac = !git add . && git commit -am
+  ca = commit --amend --no-edit
+  aaca = !git add -u && git add . && git commit --amend --no-edit
+  aacapf = !git add -u && git add . && git commit --amend --no-edit && git push --force
+  s = "!stage() { git add `git st | sed -n $1p | awk -F' ' '{ print $2 }'`; git st; }; stage"
+  u = "!unstage() { git reset HEAD `git st | sed -n $1p | awk -F' ' '{ print $2 }'`; git st; }; unstage"
+  cm = "!cm() { git commit -m \"$1\"; }; cm"
+  undo = reset HEAD~1 --mixed
+  undo-commit = reset --soft HEAD~1
+  clean-merged = !git branch --merged | grep -v \"\\*\" | xargs -n 1 git branch -d
+  re1 = reset HEAD^
+  reh = reset --hard
+  rec = !git reh && git clean -fd
+  ri = "!ri() { git rebase -i HEAD~$1; }; ri"
+  grep = grep -Ii
+  f = "!git ls-files | grep --color -i"
+  k = !gitk
+  who = shortlog -n -s --no-merges
+  up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+  cob = checkout -b
+  co = checkout
+  codu = !git checkout develop && git up
+  ec = config --global -e
+  save = !git add -A && git commit -m 'SAVEPOINT'
+  wip = !git add -u && git commit -m "WIP"
+  wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+  bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
+  bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
+  fu = reset --hard
+  mergetest = "!f(){ git merge --no-commit --no-ff \"$1\"; git merge --abort; echo \"Merge aborted\"; };f "
+
