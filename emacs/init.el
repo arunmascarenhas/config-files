@@ -128,6 +128,8 @@
 (require 'scala)
 (require 'java)
 (require 'evil_)
+(require 'rust)
+(require 'misc-tools)
 (require 'elixir)
 
 
