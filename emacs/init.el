@@ -131,7 +131,7 @@
 (require 'rust)
 (require 'misc-tools)
 (require 'elixir)
-
+(require '_shx)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Export package ;;
