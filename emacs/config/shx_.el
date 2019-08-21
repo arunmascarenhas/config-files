@@ -1,5 +1,4 @@
-(usee-package shx
-
+(use-package shx
   :init
   (shx-global-mode 1)
   (setq
@@ -16,4 +15,4 @@
     ;; use `#' to prefix shx commands instead of the default `:'
     shx-leader "#"))
 
-(provide '_shx)
+(provide 'shx_)

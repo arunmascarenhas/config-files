@@ -1,5 +1,6 @@
 (use-package elixir-mode
-  :mode "\\.el$"
+  :mode (("\\.ex'" . elixir-mode)
+         ("\\.exs\\'" . elixir-mode))
   :init
   (add-hook 'elixir-mode-hook
             (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
