@@ -37,7 +37,7 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (ensime sbt-mode scala-mode web-mode js2-refactor js-doc tern js2-mode cider clojure-mode git-gutter+ magit emmet-mode web-beautify flycheck-pos-tip flycheck-clojure hl-sexp clj-refactor evil-surround evil-numbers evil-nerd-commenter evil-matchit evil-iedit-state evil general company-emacs-eclim gradle-mode eclim validate play-routes-mode scss-mode less-css-mode rainbow-mode tss jsx-mode haml-mode stylus-mode warm-night-theme use-package magit-gh-pulls jade-mode hlinum gitignore-mode git-timemachine git-messenger git-gutter-fringe+ evalator-clojure esup cider-spy cider-profile cider-eval-sexp-fu cider-decompile browse-at-remote)))
+    (exunit dap-elixir eglot elixir-mode lsp-scala company-lsp lsp-ui lsp-mode wakatime-mode sbt-mode scala-mode web-mode js2-refactor js-doc tern js2-mode cider clojure-mode git-gutter+ magit emmet-mode web-beautify flycheck-pos-tip flycheck-clojure hl-sexp evil-surround evil-numbers evil-nerd-commenter evil-matchit evil-iedit-state evil general company-emacs-eclim gradle-mode eclim validate play-routes-mode scss-mode less-css-mode rainbow-mode tss jsx-mode haml-mode stylus-mode warm-night-theme use-package magit-gh-pulls jade-mode hlinum gitignore-mode git-timemachine git-messenger git-gutter-fringe+ evalator-clojure esup cider-spy cider-profile cider-eval-sexp-fu cider-decompile browse-at-remote)))
  '(safe-local-variable-values
    (quote
     ((eval progn
@@ -91,6 +91,25 @@
 (use-package validate)
 
 
+;; OS-specific config
+(cond
+ ((string-equal system-type "windows-nt") 
+  (progn
+                                        ; Windows-specific configurations
+    nil)
+  )
+ ((string-equal system-type "gnu/linux")
+  (progn
+                                        ; Linux-specific configurations
+    nil)
+  )
+ ((string-equal system-type "darwin")
+  (progn
+                                        ; Mac-specific configurations
+    (add-to-list 'exec-path "/usr/local/bin"))
+  )
+ )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialize my tweaks ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -108,9 +127,8 @@
 (require 'web)
 (require 'scala)
 (require 'java)
-(require 'rust)
-(require 'elixir)
 (require 'evil_)
+(require 'elixir)
 
 
 ;;;;;;;;;;;;;;;;;;;;

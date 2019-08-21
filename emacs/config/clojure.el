@@ -14,26 +14,31 @@
   (add-hook 'cider-repl-mode-hook #'company-mode)  ;; company mode for completion
   (add-hook 'cider-mode-hook #'company-mode)
   :config
-  (use-package clj-refactor
-    :init
-    (add-hook 'clojure-mode-hook
-	  (lambda ()
-	    (clj-refactor-mode 1)
-	    ;; insert keybinding setup here
-    (cljr-add-keybindings-with-prefix "C-c RET")))
-    (add-hook 'clojure-mode-hook #'yas-minor-mode)
-    (setq cljr-auto-sort-ns nil)
-    (setq cljr-favor-prefix-notation nil))
+                                        ;(use-package clj-refactor
+                                        ;:init
+                                        ;(add-hook 'clojure-mode-hook
+                                        ;(lambda ()
+                                        ;(clj-refactor-mode 1)
+	;;; insert keybinding setup here
+                                        ;(cljr-add-keybindings-with-prefix "C-c RET")))
+                                        ;(add-hook 'clojure-mode-hook #'yas-minor-mode)
+                                        ;(setq cljr-auto-sort-ns nil)
+                                        ;(setq cljr-favor-prefix-notation nil))
   (use-package let-alist)
   (use-package hl-sexp
     :init
-	(add-hook 'clojure-mode-hook #'hl-sexp-mode)
+	  (add-hook 'clojure-mode-hook #'hl-sexp-mode)
     (add-hook 'lisp-mode-hook #'hl-sexp-mode)
-    (add-hook 'emacs-lisp-mode-hook #'hl-sexp-mode)))
-  ;;(use-package flycheck-clojure
-  ;;  :ensure t
-  ;;  :config
-  ;;  (eval-after-load 'flycheck '(flycheck-clojure-setup))))
+    (add-hook 'emacs-lisp-mode-hook #'hl-sexp-mode))
+  (use-package flycheck-clojure
+    :ensure t
+    :config
+    (eval-after-load 'flycheck '(flycheck-clojure-setup)))
+  (use-package flycheck-pos-tip
+    :ensure t
+    :config
+    (eval-after-load 'flycheck
+      '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))))
 
 
 ;;;;;;;;;;;;;;;;;;;;

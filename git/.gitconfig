@@ -1,6 +1,9 @@
 [user]
 	name = Arun Mascarenhas
-	email = arunmascarenhas@yahoo.com
+	email = arun.mascarenhas@c2fo.com
+  signingkey = 36ED8E103D6D0E4A
+[commit]
+  gpgsign = false
 [url "git@github.com:"]
 	insteadOf = https://github.com
 [filter "lfs"]

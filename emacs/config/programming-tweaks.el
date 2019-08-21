@@ -88,16 +88,8 @@
                 (append flycheck-disabled-checkers
                         '(javascript-jshint)))
   (setq-default flycheck-disabled-checkers
-            (append flycheck-disabled-checkers
-                    '(json-jsonlist)))
-  (setq-default flycheck-disabled-checkers
                 (append flycheck-disabled-checkers
-                        '(json-jsonlist)))
-  (use-package flycheck-pos-tip
-    :ensure t
-    :config
-    (eval-after-load 'flycheck
-      '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))))
+                        '(json-jsonlist))))
 
 
 ;; Smart Open Line
@@ -147,6 +139,13 @@ Position the cursor at it's beginning, according to the current mode."
   :config
   :bind(("C-=" . zoom-frm-in)
         ("C--" . zoom-frm-out)))
+
+
+(use-package wakatime-mode
+  :init
+  (setq wakatime-api-key "c50b62eb-681e-4be2-b912-a73239927083"
+        wakatime-cli-path "/usr/local/bin/wakatime")
+  (global-wakatime-mode))
 
 
 ;;;;;;;;;;;;;;;;;;;;
