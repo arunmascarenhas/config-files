@@ -1,44 +1,36 @@
-;(use-package java-mode
-;  :mode ("\\.java$" . java-mode)
-;  :interpreter "java"
-;  :init
-;  (add-hook 'java-mode-hook
-;	    (lambda ()
-;	      (setq tab-width 4)
-;	      (setq indent-tabs-mode t)
-;	      (setq c-basic-offset 4))))
-
-  
 (use-package eclim
-  :ensure t
+  :straight t
   :init
- (setq help-at-pt-display-when-idle t
-       help-at-pt-timer-delay 0.1)
+  (setq help-at-pt-display-when-idle t
+        help-at-pt-timer-delay 0.1)
   (add-hook 'java-mode-hook 'eclim-mode)
   :config
   (progn
     (require 'eclimd)
     (define-key eclim-mode-map (kbd "C-c C-c") 'eclim-problems-correct)
-	(define-key eclim-mode-map (kbd "C-c C-r") 'eclim-java-refactor-rename-symbol-at-point)
-	(define-key eclim-mode-map (kbd "C-c C-m") 'eclim-java-refactor-move-class)
-	(help-at-pt-set-timer)))
+	  (define-key eclim-mode-map (kbd "C-c C-r") 'eclim-java-refactor-rename-symbol-at-point)
+	  (define-key eclim-mode-map (kbd "C-c C-m") 'eclim-java-refactor-move-class)
+	  (help-at-pt-set-timer)))
 
-
-(custom-set-variables
-  '(eclimd-default-workspace '("d:/programming/workspace")))
-
+(cond
+ (*is-windows*
+  (custom-set-variables
+   '(eclimd-default-workspace '("d:/programming/java/workspace"))))
+ (*is-a-nix*
+  (custom-set-variables
+   '(eclimd-default-workspace '("~/workspace"))))
+ (*is-macos*
+  (custom-set-variables
+   '(eclimd-default-workspace '("~/workspace")))))
 
 (use-package gradle-mode
+  :straight t
   :init
   (add-hook 'java-mode-hook '(lambda() (gradle-mode 1))))
 
-
 (use-package company-emacs-eclim
+  :straight t
   :init
   (company-emacs-eclim-setup))
 
-
-;;;;;;;;;;;;;;;;;;;;
-;; Export package ;;
-;;;;;;;;;;;;;;;;;;;;
-(provide 'java)
+(provide 'programming/_java)

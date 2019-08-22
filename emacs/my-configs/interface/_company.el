@@ -1,5 +1,5 @@
 (use-package company
-  :ensure t
+  :straight t
   :defer 4
   :diminish company-mode
   :config
@@ -17,8 +17,4 @@
     (define-key company-active-map (kbd "RET") nil)
     (global-company-mode t)))
 
-
-;;;;;;;;;;;;;;;;;;;;
-;; Export package ;;
-;;;;;;;;;;;;;;;;;;;;
-(provide 'company_)
+(provide 'interface/_company)

@@ -11,7 +11,7 @@
           helm-quick-update t
           helm-M-x-requires-pattern nil
           helm-ff-skip-boring-files t
-		  setq helm-mode-fuzzy-match t
+		  helm-mode-fuzzy-match t
 		  helm-split-window-inside-p t)
     (helm-mode 1)
 	(helm-autoresize-mode t))

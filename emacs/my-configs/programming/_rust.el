@@ -1,13 +1,22 @@
 (use-package rust-mode
+  :straight t
   :init
-  (add-hook 'rust-mode-hook 'cargo-minor-mode)
-  (add-hook 'flycheck-mode-hook 'flycheck-rust-setup)
+  (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
+  (setq racer-rust-src-path "~/Repos/rust/src") ;; Rust source code PATH
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'racer-mode-hook #'company-mode)
   (add-hook 'rust-mode-hook
             (lambda ()
-              (local-set-key (kbd "C-c <tab>") #'rust-format-buffer))))
+              (local-set-key (kbd "C-c <tab>") #'rust-format-buffer)))
+  :config
+  (use-package flycheck-rust
+    :straight t
+    :init
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+  (use-package cargo
+    :straight t
+    :init
+    (add-hook 'rust-mode-hook 'cargo-minor-mode)))
 
-
-;;;;;;;;;;;;;;;;;;;;
-;; Export package ;;
-;;;;;;;;;;;;;;;;;;;;
-(provide 'rust)
+(provide 'programming/_rust)

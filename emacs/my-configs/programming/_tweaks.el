@@ -1,6 +1,3 @@
-;;;;;;;;;;;;;;;;;;;;;;;;
-;; Programming Tweaks ;;
-;;;;;;;;;;;;;;;;;;;;;;;;
 ;; no tabs!
 (setq-default indent-tabs-mode nil)
 ;; default tab width
@@ -13,6 +10,7 @@
 (setq linum-format " %d ")
 ;; highlight current line number
 (use-package hlinum
+  :straight t
   :config
   (hlinum-activate))
 ;; highlight cursor line
@@ -74,9 +72,9 @@
           (convert-standard-filename "auto-save")))
 (setq auto-save-file-name-transforms `((".*"  ,my-auto-save-folder t)))
 
-
 ;; Flycheck
 (use-package flycheck
+  :straight t
   :diminish flycheck-mode
   :init
   (setq flycheck-highlighting-mode 'nil)
@@ -90,7 +88,6 @@
   (setq-default flycheck-disabled-checkers
                 (append flycheck-disabled-checkers
                         '(json-jsonlist))))
-
 
 ;; Smart Open Line
 (defun smart-open-line ()
@@ -112,9 +109,8 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key [(shift return)] 'smart-open-line)
 (global-set-key [(control shift return)] 'smart-open-line-above)
 
-
 (use-package aggressive-indent
-  :ensure t
+  :straight t
   :config
   (global-aggressive-indent-mode +1)
                                         ;(add-to-list 'aggressive-indent-excluded-modes 'js2-mode)
@@ -129,17 +125,14 @@ Position the cursor at it's beginning, according to the current mode."
          ("C-c L" . string-inflection-lower-camelcase)
          ("C-c J" . string-inflection-java-style-cycle)))
 
-
-
 (global-set-key (kbd "M-]") 'next-buffer)
 (global-set-key (kbd "M-[") 'previous-buffer)
 
-
 (use-package zoom-frm
+  :straight t
   :config
   :bind(("C-=" . zoom-frm-in)
         ("C--" . zoom-frm-out)))
-
 
 (use-package wakatime-mode
   :init
@@ -147,8 +140,4 @@ Position the cursor at it's beginning, according to the current mode."
         wakatime-cli-path "/usr/local/bin/wakatime")
   (global-wakatime-mode))
 
-
-;;;;;;;;;;;;;;;;;;;;
-;; Export package ;;
-;;;;;;;;;;;;;;;;;;;;
-(provide 'programming-tweaks)
+(provide 'programming/_tweaks)
