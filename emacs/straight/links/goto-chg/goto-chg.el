@@ -1,0 +1,1 @@
+c:/Users/Arun/AppData/Roaming/.emacs.d/straight/repos/goto-chg/goto-chg.el

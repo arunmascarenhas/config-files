@@ -1,0 +1,1 @@
+c:/Users/Arun/AppData/Roaming/.emacs.d/straight/repos/evil/evil-vars.el

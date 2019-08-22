@@ -1,13 +1,8 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Hacks, Performance, Defaults and Troubleshooting ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Hack for issue with packages
 (load-library "url-handlers")
-
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; User Information ;;
-;;;;;;;;;;;;;;;;;;;;;;
-(setq user-full-name "Arun Mascarenhas"
-      user-mail-address "arunmascarenhas@yahoo.com")
-
 
 ;; This makes Emacs startup time faster on a reasonably good machine.
 (message "gc-cons-threshold set to 100000000")
@@ -21,119 +16,134 @@
    (message "gc-cons-threshold restored to %S"
             gc-cons-threshold)))
 
+(setq-default debug-on-error         t
+              message-log-max        t
+              load-prefer-newer      t
+              ad-redefinition-action 'accept
+			  lexical-binding        t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Added by emacs for theme ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("ab0950f92dc5e6b667276888cb0cdbc35fd1c16f667170a62c15bd3ed5ae5c5a" "ac2b1fed9c0f0190045359327e963ddad250e131fbf332e80d371b2e1dbc1dc4" default)))
- '(eclimd-default-workspace (quote ("d:/programming/workspace")))
- '(initial-frame-alist (quote ((fullscreen . maximized))))
- '(package-selected-packages
-   (quote
-    (exunit dap-elixir eglot elixir-mode lsp-scala company-lsp lsp-ui lsp-mode wakatime-mode sbt-mode scala-mode web-mode js2-refactor js-doc tern js2-mode cider clojure-mode git-gutter+ magit emmet-mode web-beautify flycheck-pos-tip flycheck-clojure hl-sexp evil-surround evil-numbers evil-nerd-commenter evil-matchit evil-iedit-state evil general company-emacs-eclim gradle-mode eclim validate play-routes-mode scss-mode less-css-mode rainbow-mode tss jsx-mode haml-mode stylus-mode warm-night-theme use-package magit-gh-pulls jade-mode hlinum gitignore-mode git-timemachine git-messenger git-gutter-fringe+ evalator-clojure esup cider-spy cider-profile cider-eval-sexp-fu cider-decompile browse-at-remote)))
- '(safe-local-variable-values
-   (quote
-    ((eval progn
-           (add-to-list
-            (quote exec-path)
-            (concat
-             (locate-dominating-file default-directory ".dir-locals.el")
-             "node_modules/.bin/")))))))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
+;;;;;;;;;;;;;;;;;;;;;;
+;; User Information ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(setq user-full-name "Arun Mascarenhas"
+      user-mail-address "arunmascarenhas@yahoo.com")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Repositories ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'package)
-(setq load-prefer-newer t
-      package-enable-at-startup nil
-      package-archives
-      '(("gnu"   . "https://elpa.gnu.org/packages/")
-        ("org"   . "http://orgmode.org/elpa/")
-        ("melpa" . "http://melpa.org/packages/")
-	("marmalade" . "https://marmalade-repo.org/packages/")))
-(package-initialize)
+;; Commenting this out as recommended by `straight.el`
+;(require 'package)
+;(setq load-prefer-newer t
+;      package-enable-at-startup nil
+;      package-archives
+;      '(("gnu"   . "https://elpa.gnu.org/packages/")
+;        ("org"   . "http://orgmode.org/elpa/")
+;        ("melpa" . "http://melpa.org/packages/")
+;	("marmalade" . "https://marmalade-repo.org/packages/")))
+;(package-initialize)
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bootstrap straight ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Bootstrap use-package ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(setq use-package-verbose t
-      use-package-always-ensure t)
-(eval-when-compile
-  (require 'use-package))
+;;;;  Effectively replace use-package with straight-use-package
+;;; https://github.com/raxod502/straight.el/blob/develop/README.md#integration-with-use-package
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Useful packages always loaded ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; No-littering for clean config structure
+(use-package no-littering 
+  :straight t
+  :config
+  (require 'recentf)
+    (add-to-list 'recentf-exclude no-littering-var-directory)
+    (add-to-list 'recentf-exclude no-littering-etc-directory))
 ;; Add Emacs StartUp Profiler for profiling startup
-(use-package esup)
-;; ensure the mode line is clean
-(require 'diminish)
-;; easy way to bind keys
-(require 'bind-key)
+(use-package esup :straight t)
+;; Benchmark the init
+(use-package benchmark-init
+  :demand   t
+  :straight t
+  :hook ((after-init . benchmark-init/deactivate)))
+;; Ensure the mode line is clean
+(use-package diminish :straight t)
+;; Namespaces to avoid clobbering names
+(use-package names :straight t)
+;; Easy way to bind keys
+(use-package bind-key :straight t)
 ;; Ensure validate.el is installed
-(use-package validate)
+(use-package validate :straight t)
+;; Use system package managers
+(use-package system-packages
+  :straight t
+  :init
+  (setq system-packages-use-sudo nil)
+  (when (eq system-type 'darwin)
+    (setq system-packages-package-manager 'brew)))
+;; When using straight, org needs to be custom set
+(straight-use-package 'org-plus-contrib)
 
+;;;;;;;;;;;;;;;;;;;;
+;; Custom configs ;;
+;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path (expand-file-name "my-configs" user-emacs-directory))
 
-;; OS-specific config
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; OS-specific config ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+(defconst *is-windows* (eq system-type 'windows-nt))
+(defconst *is-a-nix* (eq system-type 'gnu/linux))
+(defconst *is-macos* (eq system-type 'darwin))
 (cond
- ((string-equal system-type "windows-nt") 
+ (*is-windows*
   (progn
-                                        ; Windows-specific configurations
-    nil)
-  )
- ((string-equal system-type "gnu/linux")
+    ; Windows-specific configurations
+    (require 'os/_windows)))
+ (*is-a-nix*
   (progn
-                                        ; Linux-specific configurations
-    nil)
-  )
- ((string-equal system-type "darwin")
+    ; *nix-specific configurations
+    (require 'os/_nix)))
+ (*is-macos*
   (progn
-                                        ; Mac-specific configurations
-    (add-to-list 'exec-path "/usr/local/bin"))
-  )
- )
+    ; Mac-specific configurations
+    (require 'os/_macos))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Initialize my tweaks ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
-(require 'interface-tweaks)
-(require 'frame-fns)
-(require 'frame-cmds)
-(require 'zoom-frm)
-(require 'helm_)
-(require 'company_)
-(require 'programming-tweaks)
-(require 'theme)
-(require 'git)
-(require 'clojure)
-(require 'web)
-(require 'scala)
-(require 'java)
-(require 'evil_)
-(require 'rust)
-(require 'misc-tools)
-(require 'elixir)
-(require 'shx_)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Initialize my configs ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'interface/_theme)
+(require 'interface/_tweaks)
+(require '_evil)
+(require 'interface/_helm)
+(require 'programming/_projectile)
+;(require '_programming-tweaks)
+;(require '_company)
+;(require '_git)
+;(require '_clojure)
+;(require '_web)
+;(require '_scala)
+;(require '_java)
+;(require '_rust)
+;(require '_elixir)
+;(require '_shx)
+(require '_misc)
 
-;;;;;;;;;;;;;;;;;;;;
-;; Export package ;;
-;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;; Export init ;;
+;;;;;;;;;;;;;;;;;
 (provide 'init)
