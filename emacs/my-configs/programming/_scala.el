@@ -12,7 +12,9 @@
   (substitute-key-definition
    'minibuffer-complete-word
    'self-insert-command
-   minibuffer-local-completion-map))
+   minibuffer-local-completion-map)
+  ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+  (setq sbt:program-options '("-Dsbt.supershell=false")))
 
 ;; Enable nice rendering of diagnostics like compile errors.
 (use-package flycheck
@@ -20,19 +22,18 @@
   :init (global-flycheck-mode))
 
 (use-package lsp-mode
-  :straight t
-  :init (setq lsp-prefer-flymake nil))
+  ;; Optional - enable lsp-mode automatically in scala files
+  :hook (scala-mode . lsp)
+  :config (setq lsp-prefer-flymake nil))
 
 (use-package lsp-ui :straight t)
 
+;; lsp-mode supports snippets, but in order for them to work you need to use yasnippet
+;; If you don't want to use snippets set lsp-enable-snippet to nil in your lsp-mode settings
+;;   to avoid odd behavior with snippets and indentation
+(use-package yasnippet)
+
 ;; Add company-lsp backend for metals
 (use-package company-lsp :straight t)
-
-(use-package lsp-scala
-  :straight t
-  :after scala-mode
-  :demand t
-  ;; Optional - enable lsp-scala automatically in scala files
-  :hook (scala-mode . lsp))
 
 (provide 'programming/_scala)

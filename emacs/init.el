@@ -112,16 +112,25 @@
 (cond
  (*is-windows*
   (progn
-    ; Windows-specific configurations
+                                        ; Windows-specific configurations
     (require 'os/_windows)))
  (*is-a-nix*
   (progn
-    ; *nix-specific configurations
+                                        ; *nix-specific configurations
     (require 'os/_nix)))
  (*is-macos*
   (progn
-    ; Mac-specific configurations
+                                        ; Mac-specific configurations
     (require 'os/_macos))))
+
+;; unset C- abd M- digit bindings
+(dotimes (n 10)
+  (global-unset-key (kbd (format "C-%d" n)))
+  (global-unset-key (kbd (format "M-%d" n))))
+
+;; set up my own map
+(define-prefix-command 'arun-map)
+(global-set-key (kbd "C-1") 'arun-map)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialize my configs ;;
@@ -130,6 +139,7 @@
 (require 'interface/_tweaks)
 (require 'interface/_helm)
 (require 'interface/_company)
+(require 'interface/_windows)
 (require '_evil)
 (require '_shx)
 (require 'programming/_projectile)

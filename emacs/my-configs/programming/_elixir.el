@@ -7,12 +7,12 @@
   (add-hook 'elixir-mode-hook
             (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
   :config
+  (use-package lsp-ui :straight t)
   (use-package eglot
     :straight t
-    :init
+    :config
     (add-to-list 'eglot-server-programs `(elixir-mode "/Users/arun.mascarenhas/Repos/elixir-ls/release/language_server.sh")))
-  (use-package lsp-ui :straight t)
-  (use-package dap-elixir
+  (use-package dap-mode
     :straight t
     :init
     (dap-ui-mode)

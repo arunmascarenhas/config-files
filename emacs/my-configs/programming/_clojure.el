@@ -43,4 +43,10 @@
     (eval-after-load 'flycheck
       '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))))
 
+(use-package evil-lispy
+  :straight t
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'evil-lispy-mode)
+  (add-hook 'clojure-lisp-mode-hook #'evil-lispy-mode))
+
 (provide 'programming/_clojure)
